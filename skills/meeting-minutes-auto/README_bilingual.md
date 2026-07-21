@@ -3,6 +3,7 @@
 > WorkBuddy Custom Skill · Five Paths Cover All Meeting Scenarios
 >
 > WorkBuddy 自定义技能 · 五条路径覆盖所有会议场景
+> 作者：流风@魔方泛化社区
 
 ---
 
