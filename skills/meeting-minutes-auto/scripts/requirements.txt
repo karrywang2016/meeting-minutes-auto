@@ -1,0 +1,45 @@
+# ============================================================
+# 会议纪要自动化 CLI 完整依赖清单
+# EP01 · AI落地实战课程
+# ============================================================
+# 安装方式：python scripts/install.py  （推荐，自动创建venv+安装+检查ffmpeg）
+# 手动安装：pip install -r scripts/requirements.txt
+# ============================================================
+
+# === 核心依赖：大模型结构化总结 ===
+openai>=1.0.0          # DeepSeek/通义千问/LongCat 都兼容 OpenAI 接口
+
+# === 核心依赖：语音转文字（本地 Whisper，免费离线） ===
+# openai-whisper 会自动拉取以下传递依赖：
+#   torch, numba, numpy, tiktoken, more-itertools, tqdm
+# torch 体积较大（CPU版约200MB），首次安装需要几分钟
+# GPU 用户可自行安装 CUDA 版 torch 加速转写
+openai-whisper>=20230918
+
+# 优先使用 faster-whisper（CTranslate2，CPU int8 推理更快、自带 VAD 滤静音、中文更准）
+# 已安装则自动启用；未安装自动回退 openai-whisper（配合能量 VAD 静音切除预处理）
+faster-whisper>=1.0.0
+
+# 显式锁定 whisper 的关键传递依赖（防止上游变更导致缺包）
+# ⚠️ torch>=2.13 在 Windows Python 3.13 上有 segfault 问题，建议用 2.6.0~2.12.x
+torch>=2.0.0,<2.13.0    # Whisper 推理引擎（CPU版默认安装，GPU需手动装CUDA版）
+numba>=0.57.0          # Whisper 音频预处理加速
+numpy>=1.24.0          # 音频数据数组处理
+tiktoken>=0.5.0        # Whisper tokenizer
+more-itertools>=9.0.0  # Whisper 工具依赖
+tqdm>=4.65.0           # 进度条显示
+
+# === 可选依赖：通义听悟 API（收费，准确率更高） ===
+# 不使用通义听悟可注释掉
+dashscope>=1.10.0
+
+# === 核心依赖：本机录制功能（路径E） ===
+sounddevice>=0.4.6     # 音频录制（跨平台，Windows支持WASAPI Loopback录系统音频）
+soundfile>=0.12.1      # 音频文件读写（WAV保存）
+# numpy 已在上面声明，录制和转写共用
+
+# === 系统依赖（非 pip 包，需单独安装） ===
+# ffmpeg：Whisper 转写必需的音频解码工具
+#   Windows: 运行 scripts/install.py 会自动下载到 scripts/ffmpeg/ 并配置
+#   Mac:     brew install ffmpeg
+#   Linux:   sudo apt install ffmpeg

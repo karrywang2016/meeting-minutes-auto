@@ -1,0 +1,31 @@
+{
+  "说明": "会议纪要自动化CLI配置文件 - 复制本文件为 config.json 并填入你的API Key",
+
+  "deepseek": {
+    "api_key": "sk-xxxxxxxxxxxxxxxxxxxxxxxx",
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-chat",
+    "获取地址": "https://platform.deepseek.com/api_keys"
+  },
+
+  "qwen": {
+    "api_key": "sk-xxxxxxxxxxxxxxxxxxxxxxxx",
+    "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+    "model": "qwen-max",
+    "获取地址": "https://dashscope.console.aliyun.com/apiKey"
+  },
+
+  "whisper": {
+    "model_size": "base",
+    "可选值": "tiny / base / small / medium / large",
+    "说明": "tiny最快但准确率低，large最准但需要GPU，base是平衡选择"
+  },
+
+  "费用参考": {
+    "本地Whisper": "免费（需下载模型约140MB-base）",
+    "通义听悟": "约1.4元/小时音频",
+    "DeepSeek-V3": "输入0.5元/百万token，输出8元/百万token",
+    "通义千问Max": "输入2元/百万token，输出6元/百万token",
+    "单次会议综合成本": "约0.2-1.8元（1小时会议）"
+  }
+}
